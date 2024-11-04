@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>To Do List</title>
+    <script src="https://kit.fontawesome.com/b747ecf9d6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="allContainer">
+        <h1>To Do List</h1>
+        <p><span>_____________________________________________</span></p>
+        <br>
+        <p>Nueva Tarea</p>
+        <div class="inputContainer">
+            <input type="text" id="inputTarea"> <button id="btnAgregar">Agregar</button>
+        </div>
+        <div class="bottomContainer">
+            <div class="stats">
+                <p>Total: <span id="contadorTareas"></span></p>
+                <p>Realizadas: <span id="contadorRealizadas"></span></p>
+            </div>
+            <div class="tareasContainer">
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Tarea</th>
+                        <th>Check</th>
+                        <th>Borrar</th>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        const tbody=document.querySelector("tbody");
+        const btn=document.getElementById("btnAgregar")
+        const input=document.getElementById("inputTarea")
+        const contTareas=document.getElementById("contadorTareas")
+        const contRealizadas=document.getElementById("contadorRealizadas")
+        let realizadasCount = 0;
+
+        const tareas=[
+            {id: 33231, nombre: "Pasear al perro", completado:false},
+            {id: 23232, nombre: "Estudiar", completado:false},
+            {id: 23123, nombre: "Cocinar para mañana", completado:false}
+        ];
+
+        function actualizarContadores(){
+            contTareas.textContent=tareas.length;
+            contRealizadas.textContent=realizadasCount;
+        }
+
+        /* Actualizando tareas ya ingresadas en HTML */
+        function renderTareasIngresadas(tareas){
+            tbody.innerHTML = "";
+            tareas.forEach((tarea) => {
+                tbody.innerHTML += `
+                    <tr>
+                    <td>${tarea.id}</td>
+                    <td>${tarea.nombre}</td>
+                    <td class="tdCenter"><input type="checkbox" class="checkbox" onclick="marcarTareaRealizada(${tarea.id},this)"></td>
+                    <td class="tdCenter"><i class="fa-solid fa-circle-minus" style="cursor: pointer;" onclick="eliminarTarea(${tarea.id})"></i></td>
+                    </tr>`;
+            });
+        }
+        renderTareasIngresadas(tareas);
+
+        /* Actualizando información en HTML al agregar nueva tarea */
+        function renderTareas() {
+        let html = "";
+        for (let tarea of tareas) {
+            html += `
+                <tr>
+                    <td>${tarea.id}</td>
+                    <td>${tarea.nombre}</td>
+                    <td class="tdCenter"><input type="checkbox" class="checkbox" onclick="marcarTareaRealizada(${tarea.id},this)"></td>
+                    <td class="tdCenter"><i class="fa-solid fa-circle-minus" style="cursor: pointer;" onclick="eliminarTarea(${tarea.id})"></i></td>
+                </tr>`;
+        }
+        tbody.innerHTML = html;
+        actualizarContadores();
+        }
+        
+        //Función para marcar una tarea como realizada
+        function marcarTareaRealizada(id,checkbox){
+            if(checkbox.checked){
+                realizadasCount++;
+            }else{
+                realizadasCount--;
+            }
+            actualizarContadores();
+        }
+
+        // Botón de agregar tarea
+        btn.addEventListener("click", () => {
+            const nuevaTarea = { id: Date.now(), nombre: input.value };
+            tareas.push(nuevaTarea);
+            input.value = ""; 
+            renderTareas(); 
+        });
+
+        // Función para eliminar una tarea
+        function eliminarTarea(id) {
+            const index = tareas.findIndex(tarea => tarea.id === id);
+            if (index !== -1) {
+                // Si la tarea está marcada como realizada, restar del contador de realizadas
+                const checkbox = tbody.querySelector(`tr[data-id="${id}"] .checkbox`);
+                if (checkbox && checkbox.checked) {
+                    realizadasCount--;
+                }
+                tareas.splice(index, 1);
+                renderTareas();
+            }
+        }
+    </script>
+    </body>
+</html>

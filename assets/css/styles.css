@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ecebec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.allContainer{
+    width: 900px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; 
+}
+
+.inputContainer{
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.inputContainer input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.inputContainer button {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.inputContainer button:hover {
+    background-color: #218838;
+}
+
+.bottomContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.stats{
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.tareasContainer{
+    display: flex;
+}
+
+.idClass{
+    margin-right: 54px;
+}
+
+thead th{
+    padding-left: 23px;
+    text-align: left;
+}
+.tdCenter{
+    text-align: center;
+}
